@@ -9,6 +9,11 @@ import FooterLogo from './FooterLogo';
 import SettingsIcon from './SettingsIcon';
 import StyledFooter from './StyledFooter';
 
+export interface FooterProps {
+  hideNotificationPreferences?: boolean;
+  customNotificationPreferences?: React.ReactElement | React.ReactElement[];
+}
+
 /**
  * Footer for the notification inbox. Renders a button to toggle the user
  * preferences panel.
@@ -16,15 +21,16 @@ import StyledFooter from './StyledFooter';
  * @example
  * <Footer />
  */
-export default function Footer() {
+export default function Footer({
+  hideNotificationPreferences = false,
+  customNotificationPreferences,
+}: FooterProps) {
   const [showPreferences, togglePreferences] = useToggle(false);
   const config = useConfig();
   const { inbox } = config;
-  const preferencesEnabled = pathOr(
-    true,
-    ['features', 'notificationPreferences', 'enabled'],
-    inbox,
-  );
+  const preferencesEnabled = hideNotificationPreferences
+    ? false
+    : pathOr(true, ['features', 'notificationPreferences', 'enabled'], inbox);
 
   const theme = useTheme();
   const { footer: footerTheme } = theme;
@@ -46,7 +52,14 @@ export default function Footer() {
     }
   `;
 
-  if (showPreferences) return <UserPreferencesPanel onClose={togglePreferences} />;
+  if (showPreferences) {
+    return (
+      <UserPreferencesPanel
+        onClose={togglePreferences}
+        customNotificationPreferences={customNotificationPreferences}
+      />
+    );
+  }
 
   return (
     <StyledFooter>

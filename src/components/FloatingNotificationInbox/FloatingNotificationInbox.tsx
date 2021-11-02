@@ -18,6 +18,8 @@ export interface Props extends NotificationInboxProps {
   hideArrow?: boolean;
   NotificationItem?: NotificationListItem;
   layout?: string[];
+  hideNotificationPreferences?: boolean;
+  customNotificationPreferences?: React.ReactElement | React.ReactElement[];
 }
 
 /**

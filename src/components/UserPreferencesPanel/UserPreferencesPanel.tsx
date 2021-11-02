@@ -11,6 +11,7 @@ import PreferencesCategories from './PreferencesCategories';
 
 export interface Props {
   onClose: () => void;
+  customNotificationPreferences?: React.ReactElement | React.ReactElement[];
 }
 
 /**
@@ -19,7 +20,7 @@ export interface Props {
  * @example
  * <UserPreferencesPanel onClose={closePanel} />
  */
-export default function UserPreferencesPanel({ onClose }: Props) {
+export default function UserPreferencesPanel({ onClose, customNotificationPreferences }: Props) {
   const preferences = useNotificationPreferences();
   const theme = useTheme();
   const { footer: footerTheme, header: headerTheme, container: containerTheme } = theme;
@@ -69,7 +70,7 @@ export default function UserPreferencesPanel({ onClose }: Props) {
         </button>
       </StyledHeader>
       <div className="content">
-        <PreferencesCategories />
+        {customNotificationPreferences ? customNotificationPreferences : <PreferencesCategories />}
       </div>
       <StyledFooter>
         <div

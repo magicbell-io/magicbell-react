@@ -16,6 +16,8 @@ export interface NotificationInboxProps {
   storeId?: string;
   NotificationItem?: NotificationListItem;
   layout?: string[];
+  hideNotificationPreferences?: boolean;
+  customNotificationPreferences?: React.ReactElement | React.ReactElement[];
 }
 
 /**
@@ -34,6 +36,8 @@ export default function NotificationInbox({
   onNotificationClick,
   NotificationItem,
   storeId = 'default',
+  hideNotificationPreferences = false,
+  customNotificationPreferences,
 }: NotificationInboxProps) {
   const store = useNotifications(storeId);
 
@@ -56,7 +60,11 @@ export default function NotificationInbox({
           NotificationItem={NotificationItem}
         />
         <EnablePushNotificationsBanner key="push-notifications-banner" />
-        <Footer key="footer" />
+        <Footer
+          key="footer"
+          hideNotificationPreferences={hideNotificationPreferences}
+          customNotificationPreferences={customNotificationPreferences}
+        />
       </Layout>
     </StyledContainer>
   );
