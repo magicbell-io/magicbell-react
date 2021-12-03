@@ -3,11 +3,12 @@ import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-lib
 import faker from 'faker';
 import { Response, Server } from 'miragejs';
 import React from 'react';
-import MagicBell, { Header } from '../../../../src';
+import MagicBell from '../../../../src';
 import NotificationFactory from '../../../../tests/factories/NotificationFactory';
 import { sampleConfig } from '../../../factories/ConfigFactory';
 // import { renderWithProviders as render } from '../../../__utils__/render';
 import userEvent from '@testing-library/user-event';
+import Text from '../../../../src/components/Text';
 
 const apiKey = faker.random.alphaNumeric(10);
 const userEmail = faker.internet.email();
@@ -106,7 +107,7 @@ test('supports custom translations', async () => {
       }}
       defaultIsOpen
     >
-      {() => <Header onAllRead={jest.fn()} />}
+      {() => <Text id="header.mark-all-read" defaultMessage="default" />}
     </MagicBell>,
   );
 

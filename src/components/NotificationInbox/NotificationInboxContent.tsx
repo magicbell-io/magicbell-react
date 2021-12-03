@@ -1,9 +1,6 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/react';
+import React from 'react';
 import { NotificationStore } from '@magicbell/react-headless/dist/hooks/useNotifications';
 import INotification from '@magicbell/react-headless/dist/types/INotification';
-import { useEffect, useRef, useState } from 'react';
-import { useHeight } from '../../lib/window';
 import NotificationList from '../NotificationList';
 import { NotificationListItem } from '../NotificationList/NotificationList';
 import ClearInboxMessage from './ClearInboxMessage';
@@ -31,26 +28,16 @@ export default function NotificationInboxContent({
   store,
   NotificationItem,
 }: NotificationInboxContentProps) {
-  const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const containerHeight = useHeight(ref, height);
-  const [listHeight, setListHeight] = useState(height);
-
-  useEffect(() => {
-    setListHeight(containerHeight);
-  }, [containerHeight]);
+  if (!store.lastFetchedAt) return null;
+  if (store.isEmpty) return <ClearInboxMessage />;
 
   return (
-    <div ref={ref} css={{ flex: 1, overflowY: 'hidden' }}>
-      {store.lastFetchedAt && store.isEmpty && <ClearInboxMessage />}
-      {store.lastFetchedAt && !store.isEmpty && (
-        <NotificationList
-          height={listHeight}
-          notifications={store}
-          onItemClick={onNotificationClick}
-          queryParams={store.context}
-          ListItem={NotificationItem}
-        />
-      )}
-    </div>
+    <NotificationList
+      height={height}
+      notifications={store}
+      onItemClick={onNotificationClick}
+      queryParams={store.context}
+      ListItem={NotificationItem}
+    />
   );
 }
