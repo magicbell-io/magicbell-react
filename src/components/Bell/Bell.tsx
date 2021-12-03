@@ -50,8 +50,9 @@ export default function Bell({ Icon, onClick, storeId, counter }: Props) {
   `;
 
   return (
-    <button
-      type="button"
+    <a
+      // Ugly, but we need it for now due to style issues
+      role="button"
       onClick={handleClick}
       css={[cleanslate, containerStyle]}
       aria-label="notifications"
@@ -62,6 +63,6 @@ export default function Bell({ Icon, onClick, storeId, counter }: Props) {
           counter={counter === 'unread' ? notifications?.unreadCount : notifications?.unseenCount}
         />
       )}
-    </button>
+    </a>
   );
 }
