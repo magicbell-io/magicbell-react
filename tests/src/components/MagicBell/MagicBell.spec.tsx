@@ -214,3 +214,22 @@ test('calls the onNewNotification callback when a new notification is received',
   expect(onNewNotification).toHaveBeenCalledTimes(1);
   expect(onNewNotification).toHaveBeenCalledWith(notification);
 });
+
+test('supports a custom NotificationBadge', async () => {
+  const Badge = ({ count }) => <div data-testid="custom-badge">{count}</div>;
+
+  render(
+    <MagicBell
+      apiKey={apiKey}
+      userEmail={userEmail}
+      userKey={userKey}
+      NotificationBadge={Badge}
+      bellCounter="unread"
+    >
+      {() => <div data-testid="children" />}
+    </MagicBell>,
+  );
+
+  const badge = screen.getByTestId('custom-badge');
+  await waitFor(() => expect(badge).toHaveTextContent('4'));
+});

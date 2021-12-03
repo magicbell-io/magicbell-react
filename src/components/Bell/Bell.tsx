@@ -8,7 +8,8 @@ import BellBadge from './BellBadge';
 import BellIcon from './BellIcon';
 
 export interface Props {
-  Icon?: React.ReactElement;
+  Icon?: JSX.Element;
+  NotificationBadge?: (props: { count: number }) => JSX.Element | null;
   onClick: () => void;
   storeId?: string;
   counter?: 'unread' | 'unseen';
@@ -23,7 +24,13 @@ export interface Props {
  * @example
  * <Bell onClick={toggleNotifications} />
  */
-export default function Bell({ Icon, onClick, storeId, counter }: Props) {
+export default function Bell({
+  Icon,
+  NotificationBadge = BellBadge,
+  onClick,
+  storeId,
+  counter,
+}: Props) {
   const notifications = useBell({ storeId });
   const theme = useTheme();
   const { icon: iconTheme } = theme;
@@ -59,8 +66,8 @@ export default function Bell({ Icon, onClick, storeId, counter }: Props) {
     >
       <div css={iconStyle}>{!isNil(Icon) ? Icon : <BellIcon />}</div>
       {notifications && (
-        <BellBadge
-          counter={counter === 'unread' ? notifications?.unreadCount : notifications?.unseenCount}
+        <NotificationBadge
+          count={counter === 'unread' ? notifications?.unreadCount : notifications?.unseenCount}
         />
       )}
     </a>
