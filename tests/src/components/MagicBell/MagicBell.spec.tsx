@@ -55,7 +55,7 @@ test("renders the notification bell, but not it's children", async () => {
     </MagicBell>,
   );
 
-  screen.getByRole('button', { name: /notifications/i });
+  screen.getByRole('button', { name: 'Notifications' });
   expect(screen.queryByTestId('children')).not.toBeInTheDocument();
 });
 
@@ -111,7 +111,7 @@ test('supports custom translations', async () => {
     </MagicBell>,
   );
 
-  await waitFor(() => screen.getByText(/please mark all as read/i));
+  await waitFor(() => screen.getByText('Please mark all as read'));
 });
 
 test('shows the number of unread notifications', async () => {
@@ -123,7 +123,7 @@ test('shows the number of unread notifications', async () => {
 
   await waitFor(() =>
     screen.getByRole('status', {
-      name: /4 unread items/i,
+      name: '4 unread items',
     }),
   );
 });
@@ -135,7 +135,7 @@ test('can close the inbox when defaultIsOpen is provided', async () => {
     </MagicBell>,
   );
 
-  const button = screen.getByRole('button', { name: /notifications/i });
+  const button = screen.getByRole('button', { name: 'Notifications' });
   const removal = waitForElementToBeRemoved(() => screen.getByTestId('children'));
   userEvent.click(button);
   await removal;
@@ -156,7 +156,7 @@ test('calls the onToggle callback when the button is clicked', async () => {
     </MagicBell>,
   );
 
-  const button = screen.getByRole('button', { name: /notifications/i });
+  const button = screen.getByRole('button', { name: 'Notifications' });
   userEvent.click(button);
 
   expect(onToggle).toHaveBeenCalledTimes(1);

@@ -4,6 +4,6 @@ import Header from '../../../../src/components/Header';
 
 test('renders a title and a button to mark all notification as read', () => {
   render(<Header title="notifications" actions={<button>mark all read</button>} />);
-  screen.getByRole('heading', { name: /notifications/i });
-  screen.getByRole('button', { name: /mark all read/i });
+  screen.getByRole('heading', { name: 'notifications' });
+  screen.getByRole('button', { name: 'mark all read' });
 });

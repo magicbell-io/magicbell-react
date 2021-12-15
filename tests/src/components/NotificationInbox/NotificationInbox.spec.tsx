@@ -56,13 +56,13 @@ test('renders a header, the list of notifications and a footer if the notificati
   expect(requests[0].queryParams).toMatchObject({ page: '1' });
 
   // header
-  screen.getByRole('heading', { name: /notifications/i });
+  screen.getByRole('heading', { name: /Notifications/ });
 
   // notification
-  await waitFor(() => screen.getByText(/This is a good content/i));
+  await waitFor(() => screen.getByText(/This is a good content/));
 
   // footer
-  screen.getByRole('button', { name: /notification preferences/i });
+  screen.getByRole('button', { name: /Notification preferences/ });
 });
 
 test('renders nothing if the notification store does not exist', () => {
@@ -80,7 +80,7 @@ test('clicking the mark-all-read button invokes the onAllRead callback', () => {
 
   render(<NotificationInbox onAllRead={onAllRead} height={300} />);
 
-  const button = screen.getByRole('button', { name: /mark all read/i });
+  const button = screen.getByRole('button', { name: /Mark All Read/ });
   userEvent.click(button);
 
   expect(onAllRead).toHaveBeenCalledTimes(1);
@@ -101,21 +101,21 @@ test('renders a message and a image if there are no notifications', async () => 
   render(<NotificationInbox />);
 
   await waitFor(() => screen.getByText(/We'll let you know when there's more./));
-  screen.getByRole('img', { name: /no notifications/i });
+  screen.getByRole('img', { name: /No notifications/ });
 });
 
 test('can render the inbox in Spanish', () => {
   render(<NotificationInbox />, { locale: 'es' });
-  screen.getByRole('heading', { name: /notificaciones/i });
-  screen.getByRole('button', { name: /marcar todo como leído/i });
-  screen.getByRole('button', { name: /preferencias/i });
+  screen.getByRole('heading', { name: /Notificaciones/ });
+  screen.getByRole('button', { name: /Marcar todo como leído/ });
+  screen.getByRole('button', { name: /Preferencias/ });
 });
 
 test('invokes the onAllRead callback when clicking the `mark all read` button', async () => {
   const onAllRead = jest.fn();
   render(<NotificationInbox onAllRead={onAllRead} />, { locale: 'en' });
 
-  const markAllReadButton = screen.getByRole('button', { name: /mark all read/i });
+  const markAllReadButton = screen.getByRole('button', { name: /Mark All Read/ });
   userEvent.click(markAllReadButton);
   await waitFor(() => expect(onAllRead).toBeCalledTimes(1));
 });
@@ -123,7 +123,7 @@ test('invokes the onAllRead callback when clicking the `mark all read` button', 
 test('notification preferences can be disabled trough property', () => {
   render(<NotificationInbox notificationPreferencesEnabled={false} />, { locale: 'en' });
   expect(
-    screen.queryByRole('button', { name: /notification preferences/i }),
+    screen.queryByRole('button', { name: /Notification preferences/ }),
   ).not.toBeInTheDocument();
 });
 
@@ -134,13 +134,13 @@ test('notification preferences can be disabled trough useConfig hook', () => {
 
   render(<NotificationInbox />, { locale: 'en' });
   expect(
-    screen.queryByRole('button', { name: /notification preferences/i }),
+    screen.queryByRole('button', { name: /Notification preferences/ }),
   ).not.toBeInTheDocument();
 });
 
 test('shows the user preferences panel when the preferences button is clicked', async () => {
   render(<NotificationInbox />, { locale: 'en' });
-  const preferencesButton = screen.getByRole('button', { name: /notification preferences/i });
+  const preferencesButton = screen.getByRole('button', { name: /Notification preferences/ });
   userEvent.click(preferencesButton);
 
   const checkboxes = await waitFor(() => screen.getAllByRole('checkbox'));
@@ -156,7 +156,7 @@ test('can render with a custom notification preferences component', async () => 
   const NotificationPreferences = () => <div data-testid="notification-preferences" />;
 
   render(<NotificationInbox NotificationPreferences={NotificationPreferences} />, { locale: 'en' });
-  const button = screen.getByRole('button', { name: /notification preferences/i });
+  const button = screen.getByRole('button', { name: /Notification preferences/ });
   userEvent.click(button);
 
   await waitFor(() => screen.getByTestId('notification-preferences'));

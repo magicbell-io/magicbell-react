@@ -55,7 +55,7 @@ export default function Bell({ Icon, onClick, storeId, counter }: Props) {
       role="button"
       onClick={handleClick}
       css={[cleanslate, containerStyle]}
-      aria-label="notifications"
+      aria-label="Notifications"
     >
       <div css={iconStyle}>{!isNil(Icon) ? Icon : <BellIcon />}</div>
       {notifications && (
