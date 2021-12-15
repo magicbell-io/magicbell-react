@@ -215,7 +215,7 @@ test('calls the onNewNotification callback when a new notification is received',
   expect(onNewNotification).toHaveBeenCalledWith(notification);
 });
 
-test('supports a custom NotificationBadge', async () => {
+test('supports a custom notification Badge', async () => {
   const Badge = ({ count }) => <div data-testid="custom-badge">{count}</div>;
 
   render(
@@ -223,7 +223,7 @@ test('supports a custom NotificationBadge', async () => {
       apiKey={apiKey}
       userEmail={userEmail}
       userKey={userKey}
-      NotificationBadge={Badge}
+      Badge={Badge}
       bellCounter="unread"
     >
       {() => <div data-testid="children" />}

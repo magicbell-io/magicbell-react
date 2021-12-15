@@ -100,11 +100,11 @@ WithUnreadCount.args = {
   bellCounter: 'unread',
 };
 
-export const WithCustomNotificationBadge = Template.bind({});
-WithCustomNotificationBadge.args = {
+export const WithCustomBadge = Template.bind({});
+WithCustomBadge.args = {
   ...Default.args,
   bellCounter: 'unread',
-  NotificationBadge: ({ count }) => (
+  Badge: ({ count }) => (
     <div
       style={{
         position: 'absolute',
