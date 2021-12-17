@@ -1,6 +1,6 @@
 const de = {
   header: {
-    title: 'Benachrichtigungen',
+    title: 'BENACHRICHTIGUNGEN',
     'mark-all-read': 'Alle als gelesen markieren',
   },
   notification: {

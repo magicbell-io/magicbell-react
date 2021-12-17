@@ -69,9 +69,9 @@ export default function NotificationInbox({
 
   const title =
     view === 'preferences' ? (
-      <Text id="preferences.title" defaultMessage="Preferences" />
+      <Text id="preferences.title" defaultMessage="PREFERENCES" />
     ) : (
-      <Text id="header.title" defaultMessage="Notifications" />
+      <Text id="header.title" defaultMessage="NOTIFICATIONS" />
     );
 
   const actions =

@@ -25,7 +25,6 @@ export default function Header({ title, actions }: Props) {
         role="heading"
         css={css`
           margin-right: 16px !important;
-          text-transform: uppercase;
         `}
       >
         {title}

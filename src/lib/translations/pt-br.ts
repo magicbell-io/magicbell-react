@@ -1,6 +1,6 @@
 const pt_br = {
   header: {
-    title: 'Notificações',
+    title: 'NOTIFICAÇÕES',
     'mark-all-read': 'Marcar tudo como lido',
   },
   notification: {

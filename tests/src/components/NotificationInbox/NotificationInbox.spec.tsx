@@ -56,7 +56,7 @@ test('renders a header, the list of notifications and a footer if the notificati
   expect(requests[0].queryParams).toMatchObject({ page: '1' });
 
   // header
-  screen.getByRole('heading', { name: /Notifications/ });
+  screen.getByRole('heading', { name: /NOTIFICATIONS/ });
 
   // notification
   await waitFor(() => screen.getByText(/This is a good content/));
@@ -106,7 +106,7 @@ test('renders a message and a image if there are no notifications', async () => 
 
 test('can render the inbox in Spanish', () => {
   render(<NotificationInbox />, { locale: 'es' });
-  screen.getByRole('heading', { name: /Notificaciones/ });
+  screen.getByRole('heading', { name: /NOTIFICACIONES/ });
   screen.getByRole('button', { name: /Marcar todo como leído/ });
   screen.getByRole('button', { name: /Preferencias/ });
 });
