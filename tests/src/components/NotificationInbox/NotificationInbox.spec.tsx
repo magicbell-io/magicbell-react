@@ -152,6 +152,21 @@ test('shows the user preferences panel when the preferences button is clicked', 
   await removal;
 });
 
+test('the notifications panel contains a close button', async () => {
+  render(<NotificationInbox />, { locale: 'en' });
+  const preferencesButton = screen.getByRole('button', { name: /Notification preferences/ });
+  userEvent.click(preferencesButton);
+
+  const checkboxes = await waitFor(() => screen.getAllByRole('checkbox'));
+  expect(checkboxes).toHaveLength(9);
+
+  // close the preferences, return to inbox
+  const closeButton = screen.getByRole('button', { name: /close/i });
+  const removal = waitForElementToBeRemoved(() => screen.getAllByRole('checkbox'));
+  userEvent.click(closeButton);
+  await removal;
+});
+
 test('can render with a custom notification preferences component', async () => {
   const NotificationPreferences = () => <div data-testid="notification-preferences" />;
 
