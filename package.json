@@ -38,7 +38,7 @@
   },
   "scripts": {
     "build": "microbundle --jsx React.createElement",
-    "prepare": "yarn build",
+    "prepare": "yarn build && husky install",
     "start": "microbundle watch --jsx React.createElement",
     "report-coverage": "codecov",
     "test": "TZ=America/New_York jest --collectCoverage --no-cache",
