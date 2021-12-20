@@ -48,7 +48,7 @@
     "lint": "tsc --noEmit && eslint '{src,stories,tests}/**/*.{js,ts,tsx}'"
   },
   "lint-staged": {
-    "*.{jsx?,tsx?}": [
+    "*.{js,ts,tsx}": [
       "eslint --quiet --fix"
     ],
     "*.{md,html,css,scss}": "prettier --write"
