@@ -1,9 +1,12 @@
-import React from 'react';
+/* @jsx jsx */
+import { jsx } from '@emotion/react';
 import { NotificationStore } from '@magicbell/react-headless/dist/hooks/useNotifications';
 import INotification from '@magicbell/react-headless/dist/types/INotification';
 import NotificationList from '../NotificationList';
 import { NotificationListItem } from '../NotificationList/NotificationList';
 import ClearInboxMessage from './ClearInboxMessage';
+import { useRef } from 'react';
+import { useHeight } from '../../lib/window';
 
 export interface NotificationInboxContentProps {
   height?: number;
@@ -23,21 +26,26 @@ export interface NotificationInboxContentProps {
  *   height={500} />
  */
 export default function NotificationInboxContent({
-  height,
   onNotificationClick,
   store,
+  height,
   NotificationItem,
 }: NotificationInboxContentProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const contentHeight = useHeight(contentRef, height);
+
   if (!store.lastFetchedAt) return null;
   if (store.isEmpty) return <ClearInboxMessage />;
 
   return (
-    <NotificationList
-      height={height}
-      notifications={store}
-      onItemClick={onNotificationClick}
-      queryParams={store.context}
-      ListItem={NotificationItem}
-    />
+    <div ref={contentRef} css={{ width: '100%', height: height ?? '100%' }}>
+      <NotificationList
+        height={contentHeight}
+        notifications={store}
+        onItemClick={onNotificationClick}
+        queryParams={store.context}
+        ListItem={NotificationItem}
+      />
+    </div>
   );
 }

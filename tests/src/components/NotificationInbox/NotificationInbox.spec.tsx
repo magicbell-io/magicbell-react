@@ -72,7 +72,7 @@ test('renders nothing if the notification store does not exist', () => {
     </MagicBellProvider>,
   );
 
-  expect(container).toBeEmptyDOMElement();
+  expect(container.textContent).toEqual('');
 });
 
 test('clicking the mark-all-read button invokes the onAllRead callback', () => {
@@ -148,7 +148,7 @@ test('shows the user preferences panel when the preferences button is clicked', 
 
   // clicking again closes the preferences
   const removal = waitForElementToBeRemoved(() => screen.getAllByRole('checkbox'));
-  userEvent.click(preferencesButton);
+  userEvent.click(screen.getByRole('button', { name: /Notification preferences/ }));
   await removal;
 });
 
