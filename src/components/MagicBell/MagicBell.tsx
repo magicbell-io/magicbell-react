@@ -3,6 +3,7 @@ import INotificationStore from '@magicbell/react-headless/dist/types/INotificati
 import IRemoteNotification from '@magicbell/react-headless/dist/types/IRemoteNotification';
 import React, { useRef } from 'react';
 import useToggle from 'react-use/lib/useToggle';
+
 import { IMagicBellTheme } from '../../context/Theme';
 import { CustomLocale } from '../../lib/i18n';
 import { DeepPartial } from '../../lib/types';
