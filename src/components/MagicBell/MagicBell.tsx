@@ -12,7 +12,7 @@ import MagicBellChildrenWrapper from '../MagicBellProvider/MagicBellChildrenWrap
 
 type StoreConfig = {
   id: string;
-  defaultQueryParams: Object;
+  defaultQueryParams: Record<string, unknown>;
   defaults?: Partial<Omit<INotificationStore, 'context'>>;
 };
 

@@ -82,16 +82,14 @@ export function createSafariPushSubscription(websitePushID = 'web.com.magicbell-
     hmacSecret: userKey,
   };
 
-  // @ts-ignore
-  const permissionData = window.safari.pushNotification.permission(websitePushID);
+  const permissionData = window['safari'].pushNotification.permission(websitePushID);
   if (permissionData.permission === 'granted') return Promise.resolve();
   if (permissionData.permission === 'denied') return Promise.reject();
 
   return new Promise(function (resolve, reject) {
     const webServiceURL = `${window.location.origin}/safari/push`;
 
-    // @ts-ignore
-    window.safari.pushNotification.requestPermission(
+    window['safari'].pushNotification.requestPermission(
       webServiceURL,
       websitePushID,
       user,

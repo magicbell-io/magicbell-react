@@ -27,7 +27,7 @@ Default.args = {
 export const WithCustomPreferences = Template.bind({});
 WithCustomPreferences.args = {
   ...Default.args,
-  NotificationPreferences: (props) => (
+  NotificationPreferences: () => (
     <div
       style={{
         width: '100%',
