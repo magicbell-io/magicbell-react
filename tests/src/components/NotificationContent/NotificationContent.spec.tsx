@@ -80,3 +80,19 @@ test('does not replace time elements in upper scopes', async () => {
   expect(inScope).toHaveAttribute('timeago-id');
   expect(outOfScope).not.toHaveAttribute('timeago-id');
 });
+
+test('time elements without dateTime attribute are ignored by timeAgo', async () => {
+  jest.setSystemTime(1615460277120);
+
+  const { result } = renderHook(() =>
+    useNotificationFactory({
+      ...sampleNotification,
+      content: '<p>The event starts <time data-testid="in-scope">on March 10</time>.</p>',
+    }),
+  );
+
+  render(<NotificationContent notification={result.current} />);
+
+  const time = screen.getByTestId('in-scope');
+  expect(time).not.toHaveAttribute('timeago-id');
+});
