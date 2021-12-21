@@ -45,10 +45,10 @@
     "test:watch": "TZ=America/New_York jest --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "lint": "tsc --noEmit && eslint '{src,stories,tests}/**/*.{js,ts,tsx}'"
+    "lint": "tsc --noEmit && eslint '{src,stories,tests}/**/*.{js,jsx,ts,tsx}'"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --quiet --fix"
     ],
     "*.{md,html,css,scss}": "prettier --write"
