@@ -8,20 +8,9 @@ import MagicBellProvider from '../../../../src/components/MagicBellProvider';
 import NotificationInbox from '../../../../src/components/NotificationInbox';
 import { renderWithProviders as render } from '../../../__utils__/render';
 import ConfigFactory, { sampleConfig } from '../../../factories/ConfigFactory';
-import { sampleNotification } from '../../../factories/NotificationFactory';
+import { emptyNotificationPage, sampleNotification } from '../../../factories/NotificationFactory';
 
 let server;
-
-const EMPTY_NOTIFICATIONS_PAGE = {
-  total: 0,
-  current_page: 1,
-  per_page: 15,
-  total_pages: 1,
-  project_id: 7,
-  unseen_count: 0,
-  unread_count: 0,
-  notifications: [],
-};
 
 beforeEach(() => {
   useConfig.setState({ ...sampleConfig, lastFetchedAt: Date.now() });
@@ -34,7 +23,7 @@ beforeEach(() => {
   });
 
   server.get('/notifications', {
-    ...EMPTY_NOTIFICATIONS_PAGE,
+    ...emptyNotificationPage,
     total: 1,
     unseen_count: 1,
     unread_count: 1,
@@ -96,7 +85,7 @@ test('clicking the mark-all-read button invokes the onAllRead callback', () => {
 });
 
 test('renders a message and a image if there are no notifications', async () => {
-  server.get('/notifications', EMPTY_NOTIFICATIONS_PAGE);
+  server.get('/notifications', emptyNotificationPage);
 
   render(<NotificationInbox />);
 
@@ -105,7 +94,7 @@ test('renders a message and a image if there are no notifications', async () => 
 });
 
 test('can render with a custom no-notifications placeholder if there are no notifications', async () => {
-  server.get('/notifications', EMPTY_NOTIFICATIONS_PAGE);
+  server.get('/notifications', emptyNotificationPage);
 
   const EmptyInboxPlaceholder = () => <div data-testid="empty-inbox-placeholder" />;
   render(<NotificationInbox EmptyInboxPlaceholder={EmptyInboxPlaceholder} />, { locale: 'en' });
