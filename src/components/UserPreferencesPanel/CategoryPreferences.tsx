@@ -5,6 +5,7 @@ import ToggleInput from './ToggleInput';
 
 interface Props {
   category: string;
+  channels?: string[];
 }
 
 const humanize = (str) =>
@@ -16,7 +17,16 @@ const humanize = (str) =>
     .replace(/(^|\s)\S/g, (letter) => letter.toUpperCase())
     .replace(/(\.|_)/g, ' ');
 
-export default function CategoryPreferences({ category }: Props) {
+function channelToClass(channel: string): string {
+  return {
+    inApp: 'inapp',
+    email: 'email',
+    webPush: 'web-push',
+    mobilePush: 'mobile-push',
+  }[channel] || 'inapp';
+}
+
+export default function CategoryPreferences({ category, channels = ['inApp', 'email', 'webPush'] }: Props) {
   const preferences = useNotificationPreferences();
   const categoryTitle = humanize(category);
 
@@ -27,27 +37,15 @@ export default function CategoryPreferences({ category }: Props) {
   return (
     <>
       <div>{categoryTitle}</div>
-      <div>
-        <ToggleInput
-          id={`${category}-inapp`}
-          value={preferences.categories[category].inApp}
-          onClick={(value) => updatePreferences({ inApp: value })}
-        />
-      </div>
-      <div>
-        <ToggleInput
-          id={`${category}-email`}
-          value={preferences.categories[category].email}
-          onClick={(value) => updatePreferences({ email: value })}
-        />
-      </div>
-      <div>
-        <ToggleInput
-          id={`${category}-web-push`}
-          value={preferences.categories[category].webPush}
-          onClick={(value) => updatePreferences({ webPush: value })}
-        />
-      </div>
+      {channels.map((channel) => (
+        <div key={channel} >
+          <ToggleInput
+            id={`${category}-${channelToClass(channel)}`}
+            value={preferences.categories[category][channel]}
+            onClick={(value) => updatePreferences({ [channel]: value })}
+          />
+        </div>
+      ))}
     </>
   );
 }
