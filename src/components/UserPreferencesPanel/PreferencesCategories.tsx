@@ -11,7 +11,7 @@ function channelToTitle(channel) {
     email: 'EMAIL',
     webPush: 'WEB PUSH',
     mobilePush: 'MOBILE PUSH',
-  }[channel] || 'IN-APP';
+  }[channel] || channel;
 }
 
 function getChannelsFromPreferences(preferences): string[] | undefined {
@@ -55,7 +55,7 @@ export default function PreferencesCategories() {
         css={css`
           display: grid;
           gap: 1rem;
-          grid-template-columns: 2fr ${' 1fr'.repeat(channels.length)};
+          grid-template-columns: 2fr ${' 1fr'.repeat(channels.length).trim()};
         `}
       >
         <div />
