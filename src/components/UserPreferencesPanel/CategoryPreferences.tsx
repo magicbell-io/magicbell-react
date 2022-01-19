@@ -5,7 +5,7 @@ import ToggleInput from './ToggleInput';
 
 interface Props {
   category: string;
-  channels?: string[];
+  channels?: Array<'inApp' | 'email' | 'webPush' | 'mobilePush'>;
 }
 
 const humanize = (str) =>
