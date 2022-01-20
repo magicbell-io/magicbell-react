@@ -19,15 +19,15 @@ function channelToTitle(channel: ChannelType) {
 
 function getChannelsFromPreferences(preferences: {
   categories: CategoryPreference;
-}): ChannelType[] | undefined {
+}): ChannelType[] {
   const channelPrefs = Object.values(preferences.categories);
-  if (channelPrefs.length > 0) {
-    const combinedChannels = channelPrefs.reduce((channels, otherChannels) => {
-      return { ...channels, ...otherChannels };
-    });
-    return Object.keys(combinedChannels) as ChannelType[];
-  }
-  return undefined;
+  if (!channelPrefs.length) return [];
+
+  const combinedChannels = channelPrefs.reduce((channels, otherChannels) => {
+    return { ...channels, ...otherChannels };
+  });
+
+  return Object.keys(combinedChannels) as ChannelType[];
 }
 
 export default function PreferencesCategories() {
@@ -45,11 +45,7 @@ export default function PreferencesCategories() {
     }
   }, [preferences]);
 
-  const channels: ChannelType[] = getChannelsFromPreferences(preferences) || [
-    'inApp',
-    'email',
-    'webPush',
-  ];
+  const channels = getChannelsFromPreferences(preferences);
 
   return (
     <div

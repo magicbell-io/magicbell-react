@@ -7,7 +7,7 @@ export type ChannelType = 'inApp' | 'email' | 'webPush' | 'mobilePush';
 
 interface Props {
   category: string;
-  channels?: Array<ChannelType>;
+  channels: Array<ChannelType>;
 }
 
 const humanize = (str) =>
@@ -17,7 +17,7 @@ const humanize = (str) =>
     .replace(/^-|-$/g, '')
     .toLowerCase()
     .replace(/(^|\s)\S/g, (letter) => letter.toUpperCase())
-    .replace(/(\.|_)/g, ' ');
+    .replace(/([._])/g, ' ');
 
 function channelToClass(channel: ChannelType): string {
   return (
@@ -30,10 +30,7 @@ function channelToClass(channel: ChannelType): string {
   );
 }
 
-export default function CategoryPreferences({
-  category,
-  channels = ['inApp', 'email', 'webPush'],
-}: Props) {
+export default function CategoryPreferences({ category, channels }: Props) {
   const preferences = useNotificationPreferences();
   const categoryTitle = humanize(category);
 
