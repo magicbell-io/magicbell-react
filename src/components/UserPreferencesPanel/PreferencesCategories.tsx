@@ -1,26 +1,31 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useNotificationPreferences } from '@magicbell/react-headless';
+import { CategoryPreference } from '@magicbell/react-headless/dist/types/IRemoteNotificationPreferences';
 import { useEffect } from 'react';
 
-import CategoryPreferences from './CategoryPreferences';
+import CategoryPreferences, { ChannelType } from './CategoryPreferences';
 
-function channelToTitle(channel) {
-  return {
-    inApp: 'IN-APP',
-    email: 'EMAIL',
-    webPush: 'WEB PUSH',
-    mobilePush: 'MOBILE PUSH',
-  }[channel] || channel;
+function channelToTitle(channel: ChannelType) {
+  return (
+    {
+      inApp: 'IN-APP',
+      email: 'EMAIL',
+      webPush: 'WEB PUSH',
+      mobilePush: 'MOBILE PUSH',
+    }[channel] || channel
+  );
 }
 
-function getChannelsFromPreferences(preferences): string[] | undefined {
-  const channelPrefs: object[] = Object.values(preferences.categories);
+function getChannelsFromPreferences(preferences: {
+  categories: CategoryPreference;
+}): ChannelType[] | undefined {
+  const channelPrefs = Object.values(preferences.categories);
   if (channelPrefs.length > 0) {
-    const combinedChannels: object = channelPrefs.reduce((channels: object, otherChannels: object) => {
+    const combinedChannels = channelPrefs.reduce((channels, otherChannels) => {
       return { ...channels, ...otherChannels };
     });
-    return Object.keys(combinedChannels);
+    return Object.keys(combinedChannels) as ChannelType[];
   }
   return undefined;
 }
@@ -40,7 +45,11 @@ export default function PreferencesCategories() {
     }
   }, [preferences]);
 
-  let channels = getChannelsFromPreferences(preferences) || ['inapp', 'email', 'web-push'];
+  const channels: ChannelType[] = getChannelsFromPreferences(preferences) || [
+    'inApp',
+    'email',
+    'webPush',
+  ];
 
   return (
     <div
@@ -59,8 +68,10 @@ export default function PreferencesCategories() {
         `}
       >
         <div />
-        {channels.map((channel) =>(
-          <div key={channel} css={headerStyle}>{channelToTitle(channel)}</div>
+        {channels.map((channel) => (
+          <div key={channel} css={headerStyle}>
+            {channelToTitle(channel)}
+          </div>
         ))}
         {Object.keys(preferences.categories).map((categoryKey) => (
           <CategoryPreferences key={categoryKey} category={categoryKey} channels={channels} />

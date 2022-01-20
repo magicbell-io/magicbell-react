@@ -3,9 +3,11 @@ import React from 'react';
 
 import ToggleInput from './ToggleInput';
 
+export type ChannelType = 'inApp' | 'email' | 'webPush' | 'mobilePush';
+
 interface Props {
   category: string;
-  channels?: Array<'inApp' | 'email' | 'webPush' | 'mobilePush'>;
+  channels?: Array<ChannelType>;
 }
 
 const humanize = (str) =>
@@ -17,16 +19,21 @@ const humanize = (str) =>
     .replace(/(^|\s)\S/g, (letter) => letter.toUpperCase())
     .replace(/(\.|_)/g, ' ');
 
-function channelToClass(channel: string): string {
-  return {
-    inApp: 'inapp',
-    email: 'email',
-    webPush: 'web-push',
-    mobilePush: 'mobile-push',
-  }[channel] || 'inapp';
+function channelToClass(channel: ChannelType): string {
+  return (
+    {
+      inApp: 'inapp',
+      email: 'email',
+      webPush: 'web-push',
+      mobilePush: 'mobile-push',
+    }[channel] || 'inapp'
+  );
 }
 
-export default function CategoryPreferences({ category, channels = ['inApp', 'email', 'webPush'] }: Props) {
+export default function CategoryPreferences({
+  category,
+  channels = ['inApp', 'email', 'webPush'],
+}: Props) {
   const preferences = useNotificationPreferences();
   const categoryTitle = humanize(category);
 
@@ -38,7 +45,7 @@ export default function CategoryPreferences({ category, channels = ['inApp', 'em
     <>
       <div>{categoryTitle}</div>
       {channels.map((channel) => (
-        <div key={channel} >
+        <div key={channel}>
           <ToggleInput
             id={`${category}-${channelToClass(channel)}`}
             value={preferences.categories[category][channel]}
