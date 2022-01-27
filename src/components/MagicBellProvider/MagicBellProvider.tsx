@@ -10,10 +10,8 @@ import { TranslationsProvider } from '../../context/TranslationsContext';
 import { CustomLocale, useLocale } from '../../lib/i18n';
 import { DeepPartial } from '../../lib/types';
 
-export interface OptionalProps {
+export type OptionalProps = {
   userEmail?: string;
-  userExternalId?: string;
-  userKey?: string;
   children: React.ReactElement | React.ReactElement[];
   theme?: DeepPartial<IMagicBellTheme>;
   stores?;
@@ -23,11 +21,15 @@ export interface OptionalProps {
   }>;
   serverURL?: string;
   disableRealtime?: boolean;
-}
+} & (
+  // the props can either have the externalId **OR** the email of the user
+  { userExternalId?: string; } |
+  { userEmail?: string; }
+  )
 
-export interface Props extends OptionalProps {
+export type Props  = {
   apiKey: string;
-}
+} & OptionalProps
 
 /**
  * Provider component for Magicbell.

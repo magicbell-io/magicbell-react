@@ -16,10 +16,8 @@ type StoreConfig = {
   defaults?: Partial<Omit<INotificationStore, 'context'>>;
 };
 
-export interface Props {
+export type Props ={
   apiKey?: string;
-  userEmail?: string;
-  userExternalId?: string;
   userKey?: string;
   children: (params: {
     launcherRef: React.RefObject<Element>;
@@ -40,7 +38,11 @@ export interface Props {
   onNewNotification?: (notification: IRemoteNotification) => void;
   onToggle?: (isOpen: boolean) => void;
   bellCounter?: 'unread' | 'unseen';
-}
+} & (
+  // the props can either have the externalId **OR** the email of the user
+  { userExternalId?: string; } |
+  { userEmail?: string; }
+  )
 
 /**
  * Magicbell root component. Use this one in your application.
