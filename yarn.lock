@@ -1598,9 +1598,9 @@
     chalk "^4.0.0"
 
 "@magicbell/react-headless@^2.6.1":
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/@magicbell/react-headless/-/react-headless-2.6.1.tgz#7b4a1b305f09b8f8fce2d51a9b651e3fbfebfa68"
-  integrity sha512-mS0i6RvxifFRKO4qN1xDmdkwWuKRWBJ9c/TpKhNAx37ZBLwj24ZWZVqP8RI7F0Wx37hzcUrmrR69ny0wPCfOzQ==
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@magicbell/react-headless/-/react-headless-2.6.2.tgz#fdd70e224d354a3624f086409541ab9c2ed33a68"
+  integrity sha512-e3ajekTQffivuLj4jVaNhPhIMHhCB+hPkTMeH647A+duWlLlKjOIETcYiXaVfK2ezDUptd/Y5BPgZ7yb4POlyw==
   dependencies:
     ably "^1.2.14"
     axios "^0.24.0"
