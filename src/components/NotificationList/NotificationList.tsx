@@ -21,7 +21,6 @@ export interface NotificationListProps {
   ListItem?: (props: ListItemProps) => React.ReactElement;
   notifications: NotificationStore;
   queryParams?;
-  scrollableTarget?: React.ReactNode;
 }
 
 /**
@@ -38,9 +37,8 @@ export interface NotificationListProps {
 export default function NotificationList({
   notifications: store,
   onItemClick,
-  height,
+  height = 410,
   queryParams,
-  scrollableTarget,
   ListItem = ClickableNotification,
 }: NotificationListProps) {
   return (
@@ -50,7 +48,6 @@ export default function NotificationList({
       next={() => store.fetchNextPage(queryParams)}
       loader={<Loader />}
       height={height}
-      scrollableTarget={scrollableTarget}
     >
       {store.notifications.map((notification) => (
         <ListItem key={notification.id} notification={notification} onClick={onItemClick} />
