@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ably/msgpack-js@^0.3.3":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@ably/msgpack-js/-/msgpack-js-0.3.4.tgz#21e56e6fc296b469887a622cdbde8874c8b155e2"
-  integrity sha512-gmnsxxcN/8WfoxZxQQF9LvM3ZUbuVH0LCS6oX7EJS+VfkXWBFIgDV+h7a0sntwKSvAEg4uJzNDje7kpH8/LJ3Q==
+"@ably/msgpack-js@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@ably/msgpack-js/-/msgpack-js-0.4.0.tgz#aaaf5d8dffacf7aa253effd8c3488aa09130e6a2"
+  integrity sha512-IPt/BoiQwCWubqoNik1aw/6M/DleMdrxJOUpSja6xmMRbT2p1TA8oqKWgfZabqzrq8emRNeSl/+4XABPNnW5pQ==
   dependencies:
     bops "^1.0.1"
 
@@ -1824,10 +1824,10 @@
   dependencies:
     type-detect "4.0.8"
 
-"@sinonjs/fake-timers@>=5", "@sinonjs/fake-timers@^9.0.0":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@sinonjs/fake-timers/-/fake-timers-9.1.1.tgz#7b698e0b9d12d93611f06ee143c30ced848e2840"
-  integrity sha512-Wp5vwlZ0lOqpSYGKqr53INws9HLkt6JDc/pDZcPf7bchQnrXJMXPns8CXx0hFikMSGSWfvtvvpb2gtMVfkWagA==
+"@sinonjs/fake-timers@>=5", "@sinonjs/fake-timers@^9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@sinonjs/fake-timers/-/fake-timers-9.1.2.tgz#4eaab737fab77332ab132d396a3c0d364bd0ea8c"
+  integrity sha512-BPS4ynJW/o92PUR4wgriz2Ud5gpST5vz6GQfMixEDK0Z8ZCUv2M7SkBLykH56T++Xs+8ln9zTGbOvNGIe02/jw==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
@@ -3399,11 +3399,11 @@ abab@^2.0.3, abab@^2.0.5:
   integrity sha512-9IK9EadsbHo6jLWIpxpR6pL0sazTXV6+SQv25ZB+F7Bj9mJNaOc4nCRabwd5M/JwmUa8idz6Eci6eKfJryPs6Q==
 
 ably@^1.2.14:
-  version "1.2.17"
-  resolved "https://registry.yarnpkg.com/ably/-/ably-1.2.17.tgz#6e687e598b0b0e96c5cfbed7af2c173bdd25194e"
-  integrity sha512-h22zA0gdzxzp73RetNvDkx4Fbh4CyNIYzecYAsjClO3x++QgKAutlzWYm+gQmZ/KC2iRPs1MJuLXKkzvbGtPbg==
+  version "1.2.22"
+  resolved "https://registry.yarnpkg.com/ably/-/ably-1.2.22.tgz#8b08df1042649566dd9ef5072f2dfb7b1f1dcdbe"
+  integrity sha512-Su4Am2NHVGJZ3ItFjkBRd+t5x3GDj0qwtzxM2S7AX52vEJ31CODyNToIfl7K6hEOt20XYG0U84KaJacac0hwWw==
   dependencies:
-    "@ably/msgpack-js" "^0.3.3"
+    "@ably/msgpack-js" "^0.4.0"
     got "^11.8.2"
     ws "^5.1"
 
@@ -11772,13 +11772,13 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
 
-sinon@^13.0.1:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/sinon/-/sinon-13.0.1.tgz#2a568beca2084c48985dd98e276e065c81738e3c"
-  integrity sha512-8yx2wIvkBjIq/MGY1D9h1LMraYW+z1X0mb648KZnKSdvLasvDu7maa0dFaNYdTDczFgbjNw2tOmWdTk9saVfwQ==
+sinon@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/sinon/-/sinon-14.0.0.tgz#203731c116d3a2d58dc4e3cbe1f443ba9382a031"
+  integrity sha512-ugA6BFmE+WrJdh0owRZHToLd32Uw3Lxq6E6LtNRU+xTVBefx632h03Q7apXWRsRdZAJ41LB8aUfn2+O4jsDNMw==
   dependencies:
     "@sinonjs/commons" "^1.8.3"
-    "@sinonjs/fake-timers" "^9.0.0"
+    "@sinonjs/fake-timers" "^9.1.2"
     "@sinonjs/samsam" "^6.1.1"
     diff "^5.0.0"
     nise "^5.1.1"
