@@ -180,36 +180,54 @@ test('calls the onToggle callback when the button is clicked', async () => {
   expect(onToggle).toHaveBeenCalledTimes(1);
 });
 
-test('sets the headers for fetching from the API', () => {
+test('sets the headers for fetching from the API', async () => {
+  const serverSpy = jest.fn();
+  server.get('/notifications', (_, req) => {
+    serverSpy(req.requestHeaders);
+    return new Response(200, {}, {});
+  });
+
   render(
     <MagicBell apiKey={apiKey} userEmail={userEmail} userKey={userKey}>
-      {() => <div data-testid="children" />}
+      {() => <div />}
     </MagicBell>,
   );
 
-  const requests = server.pretender.handledRequests;
-  expect(requests[0].requestHeaders).toMatchObject({
-    'X-MAGICBELL-API-KEY': apiKey,
-    'X-MAGICBELL-USER-EMAIL': userEmail,
-    'X-MAGICBELL-USER-HMAC': userKey,
-  });
+  await waitFor(() => expect(serverSpy).toHaveBeenCalled());
+
+  expect(serverSpy).toHaveBeenCalledWith(
+    expect.objectContaining({
+      'X-MAGICBELL-API-KEY': apiKey,
+      'X-MAGICBELL-USER-EMAIL': userEmail,
+      'X-MAGICBELL-USER-HMAC': userKey,
+    }),
+  );
 });
 
 test('sets the external id header for fetching from the API', async () => {
   const userExternalId = faker.random.alphaNumeric(15);
 
+  const serverSpy = jest.fn();
+  server.get('/notifications', (_, req) => {
+    serverSpy(req.requestHeaders);
+    return new Response(200, {}, {});
+  });
+
   render(
     <MagicBell apiKey={apiKey} userExternalId={userExternalId} userKey={userKey}>
-      {() => <div data-testid="children" />}
+      {() => <div />}
     </MagicBell>,
   );
 
-  const requests = server.pretender.handledRequests;
-  expect(requests[0].requestHeaders).toMatchObject({
-    'X-MAGICBELL-API-KEY': apiKey,
-    'X-MAGICBELL-USER-EXTERNAL-ID': userExternalId,
-    'X-MAGICBELL-USER-HMAC': userKey,
-  });
+  await waitFor(() => expect(serverSpy).toHaveBeenCalled());
+
+  expect(serverSpy).toHaveBeenCalledWith(
+    expect.objectContaining({
+      'X-MAGICBELL-API-KEY': apiKey,
+      'X-MAGICBELL-USER-EXTERNAL-ID': userExternalId,
+      'X-MAGICBELL-USER-HMAC': userKey,
+    }),
+  );
 });
 
 test('calls the onNewNotification callback when a new notification is received', () => {
