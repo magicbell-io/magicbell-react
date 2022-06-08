@@ -17,6 +17,17 @@ const userKey = faker.random.alphaNumeric(10);
 
 let server: Server;
 
+const sampleNotifications = {
+  total: 5,
+  current_page: 1,
+  per_page: 15,
+  total_pages: 1,
+  project_id: 7,
+  unseen_count: 0,
+  unread_count: 4,
+  notifications: NotificationFactory.buildList(5),
+};
+
 beforeEach(() => {
   server = new Server({
     environment: 'test',
@@ -24,17 +35,7 @@ beforeEach(() => {
     trackRequests: true,
     timing: 50,
   });
-  server.get('/notifications', () => ({
-    total: 5,
-    current_page: 1,
-    per_page: 15,
-    total_pages: 1,
-    project_id: 7,
-    unseen_count: 0,
-    unread_count: 4,
-    notifications: NotificationFactory.buildList(5),
-  }));
-
+  server.get('/notifications', () => sampleNotifications);
   server.get('/config', () => sampleConfig);
   server.get('/notification_preferences', () => ({
     notification_preferences: {
@@ -253,6 +254,7 @@ test('calls the onNewNotification callback when a new notification is received',
 });
 
 test('supports a custom notification Badge', async () => {
+  server.get('/notifications', () => sampleNotifications);
   const Badge = ({ count }) => <div data-testid="custom-badge">{count}</div>;
 
   render(
