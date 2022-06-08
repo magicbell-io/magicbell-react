@@ -15,7 +15,7 @@ const apiKey = faker.random.alphaNumeric(10);
 const userEmail = faker.internet.email();
 const userKey = faker.random.alphaNumeric(10);
 
-let server;
+let server: Server;
 
 beforeEach(() => {
   server = new Server({
@@ -24,7 +24,7 @@ beforeEach(() => {
     trackRequests: true,
     timing: 50,
   });
-  server.get('/notifications', {
+  server.get('/notifications', () => ({
     total: 5,
     current_page: 1,
     per_page: 15,
@@ -33,16 +33,17 @@ beforeEach(() => {
     unseen_count: 0,
     unread_count: 4,
     notifications: NotificationFactory.buildList(5),
-  });
-  server.get('/config', sampleConfig);
-  server.get('/notification_preferences', {
+  }));
+
+  server.get('/config', () => sampleConfig);
+  server.get('/notification_preferences', () => ({
     notification_preferences: {
       categories: {
         comments: { email: false },
       },
     },
-  });
-  server.post('/notifications/seen', new Response(204, {}, ''));
+  }));
+  server.post('/notifications/seen', () => new Response(204, {}, ''));
 });
 
 afterEach(() => {
