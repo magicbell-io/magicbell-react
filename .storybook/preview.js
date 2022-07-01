@@ -1,6 +1,10 @@
 import React from 'react';
 import {addons} from '@storybook/addons'
 import { themes } from '../stories/themes';
+import server from './server.js';
+
+server.start();
+
 // Some stories may set up keyboard event handlers, which interfers with storybook
 addons.setConfig({
   enableShortcuts: false
