@@ -1,6 +1,11 @@
 import React from 'react';
 import {addons} from '@storybook/addons'
 import { themes } from '../stories/themes';
+// Some stories may set up keyboard event handlers, which interfers with storybook
+addons.setConfig({
+  enableShortcuts: false
+})
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   layout: 'fullscreen',
