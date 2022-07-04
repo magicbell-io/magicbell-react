@@ -58,7 +58,7 @@ export default function NotificationsView({
     <Layout order={layout}>
       <Header
         key="header"
-        title={<Text id="header.title" defaultMessage="NOTIFICATIONS" />}
+        title={<Text id="header.title" defaultMessage="Notifications" />}
         actions={
           hasNotifications ? (
             <button onClick={handleMarkAllAsRead}>

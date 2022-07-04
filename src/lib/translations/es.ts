@@ -1,6 +1,6 @@
 const es = {
   header: {
-    title: 'NOTIFICACIONES',
+    title: 'Notificaciones',
     'mark-all-read': 'Marcar todo como leído',
   },
   notification: {
@@ -16,7 +16,7 @@ const es = {
     'empty-inbox': '¡No tiene notificaciones!<br>Le haremos saber cuando llegue una.',
   },
   preferences: {
-    title: 'PREFERENCIAS',
+    title: 'Preferencias',
     toggle: 'Preferencias de notificación',
   },
 };

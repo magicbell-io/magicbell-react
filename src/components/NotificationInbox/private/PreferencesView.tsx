@@ -31,7 +31,7 @@ export default function PreferencesView({
     <Layout order={layout}>
       <Header
         key="header"
-        title={<Text id="preferences.title" defaultMessage="PREFERENCES" />}
+        title={<Text id="preferences.title" defaultMessage="Preferences" />}
         actions={
           <button onClick={() => setView('inbox')} aria-label="close">
             <CloseIcon />

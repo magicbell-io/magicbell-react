@@ -71,3 +71,10 @@ export const LightTheme = {
     theme: 'light',
   },
 };
+
+export const Outline = {
+  ...Default,
+  parameters: {
+    theme: 'outline',
+  },
+};

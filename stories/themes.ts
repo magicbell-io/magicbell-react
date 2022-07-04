@@ -44,8 +44,13 @@ export const themes: Record<
         fontFamily: 'Inter',
         fontSize: '12px',
         textColor: '#5225C1',
-        textAlign: 'right',
+        textAlign: 'left',
         textTransform: 'none',
+      },
+      banner: {
+        boxShadow: '0 -1px 0 0 hsl(257deg 5% 90%)',
+        backgroundColor: '#F8F5FF',
+        backgroundOpacity: 1,
       },
       unseenBadge: {
         backgroundColor: '#F80808',
@@ -73,8 +78,7 @@ export const themes: Record<
       notification: {
         default: {
           margin: '4px',
-          backgroundColor: '#FFFFFF',
-          backgroundOpacity: 0,
+          backgroundColor: '#F1ECFD',
           borderRadius: '16px',
           fontFamily: 'Inter',
           fontSize: '12px',
@@ -95,24 +99,107 @@ export const themes: Record<
         unread: {
           backgroundColor: '#F8F5FF',
           backgroundOpacity: 1,
-          borderRadius: '16px',
-          hover: {
-            backgroundColor: 'hsl(257, 75%, 96%)',
-            backgroundOpacity: 1,
-          },
         },
         unseen: {
           backgroundColor: '#F8F5FF',
           backgroundOpacity: 1,
-          borderRadius: '16px',
-          hover: {
-            backgroundColor: 'hsl(257, 75%, 96%)',
-            backgroundOpacity: 1,
-          },
         },
       },
     },
   },
+  outline: {
+    name: 'outline',
+    background: '#ffffff',
+    theme: {
+      icon: {
+        borderColor: '#5225C1',
+        width: '24px',
+      },
+      header: {
+        backgroundColor: '#ffffff',
+        backgroundOpacity: 1,
+        borderRadius: '16px',
+        borderColor: 'hsl(257, 5%, 90%)',
+        fontFamily: 'Inter',
+        fontSize: '15px',
+        fontWeight: 'normal',
+        textColor: '#5225C1',
+        textAlign: 'left',
+        textTransform: 'none',
+      },
+      footer: {
+        padding: '8px 16px',
+        backgroundColor: '#ffffff',
+        backgroundOpacity: 1,
+        borderRadius: '8px',
+        borderColor: 'hsl(257, 5%, 90%)',
+        fontFamily: 'Inter',
+        fontSize: '12px',
+        textColor: '#5225C1',
+        textAlign: 'left',
+        textTransform: 'none',
+      },
+      banner: {
+        boxShadow: '0 -1px 0 0 hsl(257deg 5% 90%)',
+        backgroundColor: '#F8F5FF',
+        backgroundOpacity: 1,
+      },
+      unseenBadge: {
+        backgroundColor: '#F80808',
+        backgroundOpacity: 1,
+        borderRadius: '3px',
+        fontFamily: 'Inter',
+        fontSize: '10px',
+        fontWeight: '400',
+        textColor: 'white',
+        textAlign: 'center',
+        textTransform: 'none',
+      },
+      container: {
+        backgroundColor: '#FFFFFF',
+        backgroundOpacity: 1,
+        borderColor: '#5225C1',
+        borderRadius: '8px',
+        fontFamily: 'Inter',
+        fontSize: '12px',
+        textAlign: 'left',
+        textColor: '#3A424D',
+        textTransform: 'none',
+        boxShadow: 'none',
+      },
+      notification: {
+        default: {
+          margin: '0',
+          backgroundColor: '#F1ECFD',
+          borderRadius: '0',
+          fontFamily: 'Inter',
+          fontSize: '12px',
+          textColor: 'hsl(215, 14%, 26%)',
+          textAlign: 'left',
+          textTransform: 'none',
+          hover: {
+            backgroundColor: '#F1ECFD',
+            backgroundOpacity: 1,
+          },
+          title: {
+            fontFamily: 'inherit',
+            fontSize: 'inherit',
+            fontWeight: 600,
+            textColor: '#181B20',
+          },
+        },
+        unread: {
+          backgroundColor: '#F8F5FF',
+          backgroundOpacity: 1,
+        },
+        unseen: {
+          backgroundColor: '#F8F5FF',
+          backgroundOpacity: 1,
+        },
+      },
+    },
+  },
+
   dark: {
     name: 'dark',
     background: '#101318',
@@ -135,6 +222,7 @@ export const themes: Record<
       notification: {
         default: {
           backgroundColor: '#333A40',
+          backgroundOpacity: 1,
           borderRadius: '4px',
           textColor: 'white',
           title: {
