@@ -1,5 +1,5 @@
 import { useConfig } from '@magicbell/react-headless';
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Response, Server } from 'miragejs';
 import React from 'react';
@@ -75,7 +75,7 @@ test('clicking the mark-all-read button invokes the onAllRead callback', async (
 
   render(<NotificationInbox onAllRead={onAllRead} height={300} />);
 
-  const button = await screen.findByRole('button', { name: /Mark All Read/ });
+  const button = await screen.findByRole('button', { name: /Mark all read/ });
   userEvent.click(button);
 
   expect(onAllRead).toHaveBeenCalledTimes(1);
@@ -87,7 +87,7 @@ test('the mark-all-read button is not visible when there are no notifications', 
   render(<NotificationInbox />);
 
   await waitFor(() => screen.getByText(/We'll let you know when there's more./));
-  expect(screen.queryByRole('button', { name: /Mark All Read/ })).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /Mark all read/ })).not.toBeInTheDocument();
 });
 
 test('renders a message and a image if there are no notifications', async () => {
@@ -121,7 +121,7 @@ test('invokes the onAllRead callback when clicking the `mark all read` button', 
   const onAllRead = jest.fn();
   render(<NotificationInbox onAllRead={onAllRead} />, { locale: 'en' });
 
-  const markAllReadButton = await screen.findByRole('button', { name: /Mark All Read/ });
+  const markAllReadButton = await screen.findByRole('button', { name: /Mark all read/ });
   userEvent.click(markAllReadButton);
   await waitFor(() => expect(onAllRead).toBeCalledTimes(1));
 });
@@ -153,9 +153,8 @@ test('shows the user preferences panel when the preferences button is clicked', 
   expect(checkboxes).toHaveLength(12);
 
   // clicking again closes the preferences
-  const removal = waitForElementToBeRemoved(() => screen.getAllByRole('checkbox'));
-  userEvent.click(screen.getByRole('button', { name: /Notification preferences/ }));
-  await removal;
+  userEvent.click(screen.getByRole('button', { name: /close/ }));
+  await waitFor(() => expect(screen.queryByRole('checkbox')).not.toBeInTheDocument());
 });
 
 test('the notifications panel contains a close button', async () => {
@@ -168,9 +167,8 @@ test('the notifications panel contains a close button', async () => {
 
   // close the preferences, return to inbox
   const closeButton = screen.getByRole('button', { name: /close/i });
-  const removal = waitForElementToBeRemoved(() => screen.getAllByRole('checkbox'));
   userEvent.click(closeButton);
-  await removal;
+  await waitFor(() => expect(screen.queryByRole('checkbox')).not.toBeInTheDocument());
 });
 
 test('can render with a custom notification preferences component', async () => {
