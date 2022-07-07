@@ -81,7 +81,7 @@ test('renders the notification with the read/unread svg variation', async () => 
   expect(unreadSvg!.outerHTML).not.toEqual(readSvg!.outerHTML);
 });
 
-test('passes the notification object to the onClick callback', () => {
+test('passes the notification object to the onClick callback', async () => {
   const onClick = jest.fn();
   const notification = { ...sampleNotification, title: 'notification' };
 
@@ -89,7 +89,7 @@ test('passes the notification object to the onClick callback', () => {
 
   const notificationButton = screen.getByRole('button', { name: /notification/i });
 
-  userEvent.click(notificationButton);
+  await userEvent.click(notificationButton);
   expect(onClick).toHaveBeenCalledTimes(1);
   expect(onClick).toHaveBeenCalledWith(
     expect.objectContaining({
@@ -115,7 +115,7 @@ test('opens the action url in the same tab', () => {
 
   const notification = screen.getByRole('button', { name: /notification/i });
 
-  userEvent.click(notification);
+  await userEvent.click(notification);
 
   expect(global.open).toHaveBeenCalledTimes(1);
   expect(global.open).toHaveBeenCalledWith('https://example.com', '_self');
@@ -131,7 +131,7 @@ test('invokes the click handler when clicking on a link in the notification', ()
 
   render(<ClickableNotification notification={notification} onClick={onClick} />);
   const link = screen.getByRole('link', { name: /browse the docs/i });
-  userEvent.click(link);
+  await userEvent.click(link);
 
   expect(onClick).toHaveBeenCalledTimes(1);
   expect(onClick).toHaveBeenCalledWith(
@@ -143,7 +143,7 @@ test('invokes the click handler when clicking on a link in the notification', ()
   );
 });
 
-test('does not invoke the action url when clicking on a link in the notification', () => {
+test('does not invoke the action url when clicking on a link in the notification', async () => {
   global.open = jest.fn();
 
   const onClick = jest.fn();
@@ -156,7 +156,7 @@ test('does not invoke the action url when clicking on a link in the notification
 
   render(<ClickableNotification notification={notification} onClick={onClick} />);
   const link = screen.getByRole('link', { name: /browse other docs/i });
-  userEvent.click(link);
+  await userEvent.click(link);
 
   expect(global.open).toHaveBeenCalledTimes(0);
 });

@@ -90,26 +90,26 @@ test('can render the bell icon with the custom color and size', () => {
   expect(icon).toHaveAttribute('fill', 'red');
 });
 
-test('calls the onClick callback when the button is clicked', () => {
+test('calls the onClick callback when the button is clicked', async () => {
   const onClick = jest.fn();
   render(<Bell onClick={onClick} />);
 
   const button = screen.getByRole('button', { name: /notifications/i });
-  userEvent.click(button);
+  await userEvent.click(button);
 
   expect(onClick).toHaveBeenCalledTimes(1);
   expect(onClick).toHaveBeenCalledWith();
 });
 
-test('marks all notifications as seen', () => {
+test('marks all notifications as seen', async () => {
   const onClick = jest.fn();
   render(<Bell onClick={onClick} />);
 
   const button = screen.getByRole('button', { name: /notifications/i });
-  userEvent.click(button);
+  await userEvent.click(button);
 
   const { result } = renderHook(() => useNotification({ ...sampleNotification, seenAt: null }));
 
-  userEvent.click(button);
+  await userEvent.click(button);
   expect(result.current.seenAt).toBeDefined();
 });

@@ -76,7 +76,7 @@ test('clicking the mark-all-read button invokes the onAllRead callback', async (
   render(<NotificationInbox onAllRead={onAllRead} height={300} />);
 
   const button = await screen.findByRole('button', { name: /Mark all read/ });
-  userEvent.click(button);
+  await userEvent.click(button);
 
   expect(onAllRead).toHaveBeenCalledTimes(1);
 });
@@ -122,7 +122,7 @@ test('invokes the onAllRead callback when clicking the `mark all read` button', 
   render(<NotificationInbox onAllRead={onAllRead} />, { locale: 'en' });
 
   const markAllReadButton = await screen.findByRole('button', { name: /Mark all read/ });
-  userEvent.click(markAllReadButton);
+  await userEvent.click(markAllReadButton);
   await waitFor(() => expect(onAllRead).toBeCalledTimes(1));
 });
 
@@ -147,27 +147,27 @@ test('notification preferences can be disabled trough useConfig hook', () => {
 test('shows the user preferences panel when the preferences button is clicked', async () => {
   render(<NotificationInbox />, { locale: 'en' });
   const preferencesButton = screen.getByRole('button', { name: /Notification preferences/ });
-  userEvent.click(preferencesButton);
+  await userEvent.click(preferencesButton);
 
   const checkboxes = await waitFor(() => screen.getAllByRole('checkbox'));
   expect(checkboxes).toHaveLength(12);
 
   // clicking again closes the preferences
-  userEvent.click(screen.getByRole('button', { name: /close/ }));
+  await userEvent.click(screen.getByRole('button', { name: /close/ }));
   await waitFor(() => expect(screen.queryByRole('checkbox')).not.toBeInTheDocument());
 });
 
 test('the notifications panel contains a close button', async () => {
   render(<NotificationInbox />, { locale: 'en' });
   const preferencesButton = screen.getByRole('button', { name: /Notification preferences/ });
-  userEvent.click(preferencesButton);
+  await userEvent.click(preferencesButton);
 
   const checkboxes = await waitFor(() => screen.getAllByRole('checkbox'));
   expect(checkboxes).toHaveLength(12);
 
   // close the preferences, return to inbox
   const closeButton = screen.getByRole('button', { name: /close/i });
-  userEvent.click(closeButton);
+  await userEvent.click(closeButton);
   await waitFor(() => expect(screen.queryByRole('checkbox')).not.toBeInTheDocument());
 });
 
@@ -176,7 +176,7 @@ test('can render with a custom notification preferences component', async () => 
 
   render(<NotificationInbox NotificationPreferences={NotificationPreferences} />, { locale: 'en' });
   const button = screen.getByRole('button', { name: /Notification preferences/ });
-  userEvent.click(button);
+  await userEvent.click(button);
 
   await waitFor(() => screen.getByTestId('notification-preferences'));
 });

@@ -115,7 +115,7 @@ test('can render the inbox with a custom layout', async () => {
   });
 });
 
-test('toggles the notification inbox', () => {
+test('toggles the notification inbox', async () => {
   const ref = React.createRef<any>();
   const onClick = jest.fn();
 
@@ -127,12 +127,12 @@ test('toggles the notification inbox', () => {
   );
 
   const title = screen.getByText(sampleNotification.title);
-  userEvent.click(title);
+  await userEvent.click(title);
 
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test('calls the onNotificationClick callback', () => {
+test('calls the onNotificationClick callback', async () => {
   const ref = React.createRef<any>();
   const onClick = jest.fn();
 
@@ -149,12 +149,12 @@ test('calls the onNotificationClick callback', () => {
   );
 
   const title = screen.getByText(sampleNotification.title);
-  userEvent.click(title);
+  await userEvent.click(title);
 
   expect(onClick).toHaveBeenCalledTimes(1);
 });
 
-test('opens the action url in the same window', () => {
+test('opens the action url in the same window', async () => {
   const ref = React.createRef<any>();
   const onClick = jest.fn();
 
@@ -171,7 +171,7 @@ test('opens the action url in the same window', () => {
   );
 
   const title = screen.getByText(sampleNotification.title);
-  userEvent.click(title);
+  await userEvent.click(title);
 
   expect(global.open).toHaveBeenCalledTimes(1);
   expect(global.open).toHaveBeenCalledWith(sampleNotification.actionUrl, '_self');

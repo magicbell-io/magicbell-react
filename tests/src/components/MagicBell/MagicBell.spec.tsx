@@ -1,6 +1,5 @@
 import { eventAggregator } from '@magicbell/react-headless';
-import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
-// import { renderWithProviders as render } from '../../../__utils__/render';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import faker from 'faker';
 import { Response, Server } from 'miragejs';
@@ -62,7 +61,7 @@ test('clicking the bell opens the default inbox', async () => {
   render(<MagicBell apiKey={apiKey} userEmail={userEmail} userKey={userKey} />);
 
   const button = screen.getByRole('button');
-  userEvent.click(button);
+  await userEvent.click(button);
   await screen.findByRole('button', { name: /Mark All Read/i });
 });
 
@@ -85,7 +84,7 @@ test('clicking the bell opens the custom inbox', async () => {
   );
 
   const button = screen.getByRole('button');
-  userEvent.click(button);
+  await userEvent.click(button);
   await waitFor(() => screen.getByTestId('children'));
 });
 
@@ -156,9 +155,8 @@ test('can close the inbox when defaultIsOpen is provided', async () => {
   );
 
   const button = screen.getByRole('button', { name: 'Notifications' });
-  const removal = waitForElementToBeRemoved(() => screen.getByTestId('children'));
-  userEvent.click(button);
-  await removal;
+  await userEvent.click(button);
+  await waitFor(() => expect(screen.queryByTestId('children')).not.toBeInTheDocument());
 });
 
 test('calls the onToggle callback when the button is clicked', async () => {
@@ -177,7 +175,7 @@ test('calls the onToggle callback when the button is clicked', async () => {
   );
 
   const button = screen.getByRole('button', { name: 'Notifications' });
-  userEvent.click(button);
+  await userEvent.click(button);
 
   expect(onToggle).toHaveBeenCalledTimes(1);
 });

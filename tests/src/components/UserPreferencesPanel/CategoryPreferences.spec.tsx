@@ -75,7 +75,7 @@ describe('CategoryPreferences component', () => {
       const spy = jest.spyOn(result.current, 'save');
 
       const inAppCheckbox = screen.getAllByRole('checkbox')[0];
-      userEvent.click(inAppCheckbox);
+      await userEvent.click(inAppCheckbox);
 
       expect(spy).toHaveBeenCalledTimes(1);
       expect(result.current.categories[0]).toStrictEqual(
