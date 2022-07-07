@@ -68,7 +68,7 @@ describe('CategoryPreferences component', () => {
 
     afterEach(() => jest.clearAllMocks());
 
-    test('updates the preferences for the inBox channel of the Comments category', async () => {
+    test('updates the preferences for the inbox channel of the Comments category', async () => {
       render(<CategoryPreferences category={threeChannelPreference.categories[0]} />);
 
       const { result } = renderHook(() => useNotificationPreferences());

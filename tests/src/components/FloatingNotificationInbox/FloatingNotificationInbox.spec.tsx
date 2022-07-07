@@ -30,6 +30,7 @@ beforeEach(async () => {
     timing: 0,
   });
 
+  server.get('/config', sampleConfig);
   server.get('/notifications', {
     total: 1,
     per_page: 15,
