@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import INotification from '@magicbell/react-headless/dist/types/INotification';
 
 import { useTheme } from '../../context/MagicBellThemeContext';
+import { useTranslate } from '../../context/TranslationsContext';
 import MenuIcon from '../icons/MenuIcon';
 import NotificationContextMenu from '../NotificationContextMenu';
 import Popover from '../Popover';
@@ -35,6 +36,7 @@ export interface Props {
  */
 export default function NotificationMenu({ notification, menuPlacement = 'bottom-end' }: Props) {
   const { notification: themeVariants } = useTheme();
+  const t = useTranslate();
 
   const theme = !notification.isSeen
     ? themeVariants.unseen
@@ -45,6 +47,7 @@ export default function NotificationMenu({ notification, menuPlacement = 'bottom
   const launcher = (
     <button
       type="button"
+      aria-label={t('notification.menu', 'Menu')}
       css={css`
         color: ${theme.textColor} !important;
       `}
