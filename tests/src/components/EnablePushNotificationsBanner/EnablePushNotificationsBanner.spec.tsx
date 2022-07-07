@@ -1,5 +1,5 @@
 import { useConfig } from '@magicbell/react-headless';
-import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -54,10 +54,6 @@ test('closes the banner when clicking the close button', async () => {
 
   const closeButton = screen.getByRole('button', { name: /close notification/i });
 
-  const removal = waitForElementToBeRemoved(() =>
-    screen.queryByRole('button', { name: /close notification/i }),
-  );
-
-  userEvent.click(closeButton);
-  await removal;
+  await userEvent.click(closeButton);
+  await waitFor(() => expect(closeButton).not.toBeInTheDocument());
 });

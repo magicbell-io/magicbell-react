@@ -126,7 +126,7 @@ test('toggles the notification inbox', async () => {
     </>,
   );
 
-  const title = screen.getByText(sampleNotification.title);
+  const title = await screen.findByRole('button', { name: sampleNotification.title });
   await userEvent.click(title);
 
   expect(onClick).toHaveBeenCalledTimes(1);
@@ -148,7 +148,7 @@ test('calls the onNotificationClick callback', async () => {
     </>,
   );
 
-  const title = screen.getByText(sampleNotification.title);
+  const title = await screen.findByRole('button', { name: sampleNotification.title });
   await userEvent.click(title);
 
   expect(onClick).toHaveBeenCalledTimes(1);
@@ -170,7 +170,7 @@ test('opens the action url in the same window', async () => {
     </>,
   );
 
-  const title = screen.getByText(sampleNotification.title);
+  const title = await screen.findByRole('button', { name: sampleNotification.title });
   await userEvent.click(title);
 
   expect(global.open).toHaveBeenCalledTimes(1);
