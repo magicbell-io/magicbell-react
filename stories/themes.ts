@@ -77,7 +77,8 @@ export const themes: Record<
       },
       notification: {
         default: {
-          margin: '4px',
+          margin: '8px',
+          padding: '16px 8px',
           backgroundColor: '#F1ECFD',
           borderRadius: '16px',
           fontFamily: 'Inter',
@@ -99,10 +100,16 @@ export const themes: Record<
         unread: {
           backgroundColor: '#F8F5FF',
           backgroundOpacity: 1,
+          state: {
+            color: '#5225C1',
+          },
         },
         unseen: {
           backgroundColor: '#F8F5FF',
           backgroundOpacity: 1,
+          state: {
+            color: '#5225C1',
+          },
         },
       },
     },
@@ -170,6 +177,7 @@ export const themes: Record<
       notification: {
         default: {
           margin: '0',
+          padding: '16px 8px',
           backgroundColor: '#F1ECFD',
           borderRadius: '0',
           fontFamily: 'Inter',

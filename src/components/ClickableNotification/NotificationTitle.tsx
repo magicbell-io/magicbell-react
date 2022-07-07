@@ -25,7 +25,7 @@ export default function NotificationTitle({ notification }: Props) {
 
   return (
     <p
-      title={title}
+      id={`magicbell-notification-title-${notification.id}`}
       css={css`
         cursor: inherit;
         font-weight: ${theme.fontWeight} !important;

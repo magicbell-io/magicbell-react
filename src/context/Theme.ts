@@ -24,6 +24,9 @@ interface NotificationTheme extends IElementTheme {
     fontWeight: number;
     textColor: string;
   };
+  state: {
+    color: string;
+  };
 }
 
 export interface IMagicBellTheme {
@@ -72,8 +75,8 @@ const notification: NotificationTheme = {
   textAlign,
   textColor: black,
   textTransform,
-  padding: '0',
   margin: '4px',
+  padding: '16px 20px',
   title: {
     fontFamily: 'inherit',
     fontSize: 'inherit',
@@ -83,6 +86,9 @@ const notification: NotificationTheme = {
   hover: {
     backgroundColor: blue,
     backgroundOpacity: 0.1,
+  },
+  state: {
+    color: 'transparent',
   },
 };
 
@@ -162,6 +168,9 @@ export const defaultTheme: IMagicBellTheme = {
       textAlign,
       textColor: black,
       textTransform,
+      state: {
+        color: blue,
+      },
     },
     unseen: {
       ...notification,
@@ -174,6 +183,9 @@ export const defaultTheme: IMagicBellTheme = {
       textAlign,
       textColor: black,
       textTransform,
+      state: {
+        color: blue,
+      },
     },
   },
 };
