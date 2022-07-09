@@ -1,43 +1,20 @@
 import { useConfig } from '@magicbell/react-headless';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Response, Server } from 'miragejs';
 import React from 'react';
 
 import MagicBellProvider from '../../../../src/components/MagicBellProvider';
 import NotificationInbox from '../../../../src/components/NotificationInbox';
 import { renderWithProviders as render } from '../../../__utils__/render';
+import { createServer } from '../../../__utils__/server';
 import ConfigFactory, { sampleConfig } from '../../../factories/ConfigFactory';
-import { emptyNotificationPage, sampleNotification } from '../../../factories/NotificationFactory';
-import { sampleNotificationPreferences } from '../../../factories/NotificationPreferencesFactory';
+import { emptyNotificationPage } from '../../../factories/NotificationFactory';
 
-let server;
+let server: ReturnType<typeof createServer>;
 
 beforeEach(() => {
   useConfig.setState({ ...sampleConfig, lastFetchedAt: Date.now() });
-
-  server = new Server({
-    environment: 'test',
-    urlPrefix: 'https://api.magicbell.com',
-    timing: 50,
-    trackRequests: true,
-  });
-
-  server.get('/notifications', {
-    ...emptyNotificationPage,
-    total: 1,
-    unseen_count: 1,
-    unread_count: 1,
-    notifications: [sampleNotification],
-  });
-  server.post('/notifications/read', () => new Response(204, {}, ''));
-  server.post('/notifications/*/read', () => new Response(204, {}, ''));
-
-  server.get('/notification_preferences', {
-    notification_preferences: {
-      ...sampleNotificationPreferences,
-    },
-  });
+  server = createServer();
 });
 
 afterEach(() => {
@@ -47,7 +24,7 @@ afterEach(() => {
 test('renders a header, the list of notifications and a footer if the notifications are fetched', async () => {
   render(<NotificationInbox height={300} />);
 
-  const requests = server.pretender.handledRequests;
+  const requests = server.pretender['handledRequests'];
   expect(requests[0].queryParams).toMatchObject({ page: '1' });
 
   // header
@@ -82,7 +59,7 @@ test('clicking the mark-all-read button invokes the onAllRead callback', async (
 });
 
 test('the mark-all-read button is not visible when there are no notifications', async () => {
-  server.get('/notifications', emptyNotificationPage);
+  server.get('/notifications', () => emptyNotificationPage);
 
   render(<NotificationInbox />);
 
@@ -91,7 +68,7 @@ test('the mark-all-read button is not visible when there are no notifications', 
 });
 
 test('renders a message and a image if there are no notifications', async () => {
-  server.get('/notifications', emptyNotificationPage);
+  server.get('/notifications', () => emptyNotificationPage);
 
   render(<NotificationInbox />);
 
@@ -100,7 +77,7 @@ test('renders a message and a image if there are no notifications', async () => 
 });
 
 test('can render with a custom no-notifications placeholder if there are no notifications', async () => {
-  server.get('/notifications', emptyNotificationPage);
+  server.get('/notifications', () => emptyNotificationPage);
 
   const EmptyInboxPlaceholder = () => <div data-testid="empty-inbox-placeholder" />;
   render(<NotificationInbox EmptyInboxPlaceholder={EmptyInboxPlaceholder} />, { locale: 'en' });

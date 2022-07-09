@@ -2,19 +2,18 @@ import { eventAggregator } from '@magicbell/react-headless';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import faker from 'faker';
-import { Response, Server } from 'miragejs';
 import React from 'react';
 
 import MagicBell from '../../../../src';
 import Text from '../../../../src/components/Text';
 import NotificationFactory from '../../../../tests/factories/NotificationFactory';
-import { sampleConfig } from '../../../factories/ConfigFactory';
+import { createServer } from '../../../__utils__/server';
 
 const apiKey = faker.random.alphaNumeric(10);
 const userEmail = faker.internet.email();
 const userKey = faker.random.alphaNumeric(10);
 
-let server: Server;
+let server: ReturnType<typeof createServer>;
 
 const sampleNotifications = {
   total: 5,
@@ -28,22 +27,8 @@ const sampleNotifications = {
 };
 
 beforeEach(() => {
-  server = new Server({
-    environment: 'test',
-    urlPrefix: 'https://api.magicbell.com',
-    trackRequests: true,
-    timing: 50,
-  });
+  server = createServer();
   server.get('/notifications', () => sampleNotifications);
-  server.get('/config', () => sampleConfig);
-  server.get('/notification_preferences', () => ({
-    notification_preferences: {
-      categories: {
-        comments: { email: false },
-      },
-    },
-  }));
-  server.post('/notifications/seen', () => new Response(204, {}, ''));
 });
 
 afterEach(() => {

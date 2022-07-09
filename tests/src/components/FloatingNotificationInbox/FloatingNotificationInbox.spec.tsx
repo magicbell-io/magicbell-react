@@ -1,11 +1,11 @@
 import { useConfig } from '@magicbell/react-headless';
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createServer, Response } from 'miragejs';
 import React from 'react';
 
 import FloatingNotificationInbox from '../../../../src/components/FloatingNotificationInbox';
 import { renderWithProviders as render } from '../../../__utils__/render';
+import { createServer } from '../../../__utils__/server';
 import { sampleConfig } from '../../../factories/ConfigFactory';
 import { sampleNotification } from '../../../factories/NotificationFactory';
 
@@ -17,30 +17,14 @@ const stores = [
   },
 ];
 
-let server;
+let server: ReturnType<typeof createServer>;
 
 beforeEach(async () => {
+  server = createServer();
+
   act(() => {
     useConfig.setState({ ...sampleConfig, lastFetchedAt: Date.now() });
   });
-
-  server = createServer({
-    environment: 'test',
-    urlPrefix: 'https://api.magicbell.com',
-    timing: 0,
-  });
-
-  server.get('/config', sampleConfig);
-  server.get('/notifications', {
-    total: 1,
-    per_page: 15,
-    current_page: 1,
-    unseen_count: 0,
-    unread_count: 1,
-    notifications: [sampleNotification],
-  });
-  server.post(`/notifications/${sampleNotification.id}/read`, new Response(204, {}, ''));
-  server.post(`/notifications/${sampleNotification.id}/unread`, new Response(204, {}, ''));
 });
 
 afterEach(() => {
