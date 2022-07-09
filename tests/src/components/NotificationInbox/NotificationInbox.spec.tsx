@@ -1,4 +1,4 @@
-import { useConfig } from '@magicbell/react-headless';
+import { useConfig, useNotificationPreferences } from '@magicbell/react-headless';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
@@ -122,6 +122,8 @@ test('notification preferences can be disabled trough useConfig hook', () => {
 });
 
 test('shows the user preferences panel when the preferences button is clicked', async () => {
+  useNotificationPreferences.setState({ lastFetchedAt: undefined });
+
   render(<NotificationInbox />, { locale: 'en' });
   const preferencesButton = screen.getByRole('button', { name: /Notification preferences/ });
   await userEvent.click(preferencesButton);
@@ -135,6 +137,8 @@ test('shows the user preferences panel when the preferences button is clicked', 
 });
 
 test('the notifications panel contains a close button', async () => {
+  useNotificationPreferences.setState({ lastFetchedAt: undefined });
+
   render(<NotificationInbox />, { locale: 'en' });
   const preferencesButton = screen.getByRole('button', { name: /Notification preferences/ });
   await userEvent.click(preferencesButton);
