@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import INotification from '@magicbell/react-headless/dist/types/INotification';
 
 import { useTheme } from '../../context/MagicBellThemeContext';
+import { toRGBA } from '../../lib/color';
 import Text from '../Text';
 
 export interface Props {
@@ -45,9 +46,16 @@ export default function NotificationContextMenu({ notification }: Props) {
           padding: 0.75em 1.25em !important;
           width: 100%;
           text-align: left;
+          background-color: ${toRGBA(
+            notificationTheme.backgroundColor,
+            notificationTheme.backgroundOpacity,
+          )} !important;
 
           &:hover {
-            text-decoration: underline !important;
+            background-color: ${toRGBA(
+              notificationTheme.hover.backgroundColor,
+              notificationTheme.hover.backgroundOpacity,
+            )} !important;
           }
         }
       `}

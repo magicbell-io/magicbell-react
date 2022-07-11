@@ -73,7 +73,7 @@ export const themes: Record<
         textAlign: 'left',
         textColor: '#3A424D',
         textTransform: 'none',
-        boxShadow: '0px 0px 6px rgba(0, 0, 0, 0.08), 0px 5px 12px rgba(0, 0, 0, 0.16);',
+        boxShadow: '0px 0px 6px rgba(0, 0, 0, 0.08), 0px 5px 12px rgba(0, 0, 0, 0.16)',
       },
       notification: {
         default: {
