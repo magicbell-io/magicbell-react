@@ -7,6 +7,7 @@ const es = {
     'mark-as-read': 'Marcar como leído',
     'mark-as-unread': 'Marcar como no leído',
     delete: 'Eliminar',
+    menu: 'Menu',
   },
   'web-push-notifications': {
     notice: 'Active notificaciones en su navegador para mantenerse actualizado',

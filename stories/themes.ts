@@ -73,11 +73,12 @@ export const themes: Record<
         textAlign: 'left',
         textColor: '#3A424D',
         textTransform: 'none',
-        boxShadow: '0px 0px 6px rgba(0, 0, 0, 0.08), 0px 5px 12px rgba(0, 0, 0, 0.16);',
+        boxShadow: '0px 0px 6px rgba(0, 0, 0, 0.08), 0px 5px 12px rgba(0, 0, 0, 0.16)',
       },
       notification: {
         default: {
-          margin: '4px',
+          margin: '8px',
+          padding: '16px 8px',
           backgroundColor: '#F1ECFD',
           borderRadius: '16px',
           fontFamily: 'Inter',
@@ -99,10 +100,16 @@ export const themes: Record<
         unread: {
           backgroundColor: '#F8F5FF',
           backgroundOpacity: 1,
+          state: {
+            color: '#5225C1',
+          },
         },
         unseen: {
           backgroundColor: '#F8F5FF',
           backgroundOpacity: 1,
+          state: {
+            color: '#5225C1',
+          },
         },
       },
     },
@@ -170,6 +177,7 @@ export const themes: Record<
       notification: {
         default: {
           margin: '0',
+          padding: '16px 8px',
           backgroundColor: '#F1ECFD',
           borderRadius: '0',
           fontFamily: 'Inter',

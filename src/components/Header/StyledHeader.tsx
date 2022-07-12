@@ -47,6 +47,14 @@ export default function StyledHeader({ children }: Props) {
     &:last-of-type {
       border-radius: 0 0 ${headerTheme.borderRadius} ${headerTheme.borderRadius}!important;
     }
+
+    & button:hover {
+      opacity: 0.8;
+    }
+
+    & button:active {
+      opacity: 0.9;
+    }
   `;
 
   return <div css={[cleanslate, style]}>{children}</div>;

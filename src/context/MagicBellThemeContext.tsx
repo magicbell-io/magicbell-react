@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createContext, useContext, useMemo } from 'react';
 
-import { darken } from '../lib/color';
+import { darken, toRGBA } from '../lib/color';
 import { merge } from '../lib/merge';
 import { DeepPartial } from '../lib/types';
 import { defaultTheme, IMagicBellTheme } from './Theme';
@@ -46,6 +46,27 @@ export function MagicBellThemeProvider({
           },
           partialTheme.notification?.default?.hover,
           partialTheme.notification?.[variant]?.hover,
+        );
+      }
+    }
+
+    // backwards compatibility for status styles. We only compute status style if
+    // the partially provided theme doesn't define them for any of the notification states.
+    const hasDeclaredStateStyles = ['default', 'unseen', 'unread'].some((variant) =>
+      Boolean(partialTheme.notification?.[variant]?.state),
+    );
+
+    if (!hasDeclaredStateStyles) {
+      for (const variant of ['default', 'unseen', 'unread']) {
+        const current = merged.notification[variant];
+
+        const color =
+          variant === 'default' ? toRGBA(current.textColor, 0.5) : merged.header.backgroundColor;
+
+        merged.notification[variant].state = merge(
+          { color },
+          partialTheme.notification?.default?.state,
+          partialTheme.notification?.[variant]?.state,
         );
       }
     }

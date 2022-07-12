@@ -7,6 +7,7 @@ const pt_br = {
     'mark-as-read': 'Marcar como lido',
     'mark-as-unread': 'Marcar como não lido',
     delete: 'Apagar',
+    menu: 'Menu',
   },
   'web-push-notifications': {
     notice: 'Ao ativar as notificações do navegador, você ficará ainda melhor atualizado.',
