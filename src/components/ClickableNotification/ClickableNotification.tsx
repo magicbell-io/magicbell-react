@@ -10,6 +10,7 @@ import NotificationState from '../NotificationState';
 import Timestamp from '../Timestamp';
 import { openActionUrl } from './eventHandlers';
 import NotificationTitle from './NotificationTitle';
+import { useProse } from './prose';
 import StyledContainer from './StyledContainer';
 
 export interface Props {
@@ -26,6 +27,7 @@ export interface Props {
  */
 export default function ClickableNotification({ notification: rawNotification, onClick }: Props) {
   const notification = useNotification(rawNotification);
+  const prose = useProse();
 
   const handleMarkAsRead = () => {
     notification.markAsRead();
@@ -55,7 +57,7 @@ export default function ClickableNotification({ notification: rawNotification, o
         aria-labelledby={`magicbell-notification-title-${notification.id}`}
       />
       <NotificationState notification={notification} />
-      <div css={content}>
+      <div css={[content, prose]}>
         <NotificationTitle notification={notification} />
         <NotificationContent notification={notification} />
       </div>
