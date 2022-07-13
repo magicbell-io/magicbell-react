@@ -96,11 +96,8 @@ const notification: NotificationTheme = {
 const prose = {
   body: '#334155',
   headings: '#0f172a',
-  lead: '#475569',
   links: '#0f172a',
   bold: '#0f172a',
-  counters: '#64748b',
-  bullets: '#cbd5e1',
   hr: '#e2e8f0',
   quotes: '#0f172a',
   quoteBorders: '#e2e8f0',

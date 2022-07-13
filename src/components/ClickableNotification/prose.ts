@@ -16,6 +16,8 @@ export function useProse() {
     }
 
     & a {
+      color: ${prose.links};
+
       text-decoration: underline;
       &:hover {
         text-decoration: none;
@@ -23,7 +25,6 @@ export function useProse() {
     }
 
     & strong {
-      color: ${prose.body} !important;
       font-weight: 600;
     }
 
@@ -71,8 +72,7 @@ export function useProse() {
       color: ${prose.headings};
       font-weight: 800;
       font-size: 2.25em;
-      margin-top: 0;
-      margin-bottom: 0.9em;
+      margin: 0 0 0.9em 0;
       line-height: 1.1111111;
     }
 
@@ -80,8 +80,7 @@ export function useProse() {
       color: ${prose.headings};
       font-weight: 700;
       font-size: 1.5em;
-      margin-top: 2em;
-      margin-bottom: 1em;
+      margin: 2em 0 1em 0;
       line-height: 1.3333333;
     }
 
@@ -104,10 +103,11 @@ export function useProse() {
       color: ${prose.captions};
       font-size: 0.875em;
       line-height: 1.4285714;
-      margin-top: 0.85em;
+      margin: 0.85em 0 0 0;
     }
 
     & code {
+      color: ${prose.code};
       font-weight: 600;
       font-size: 0.875em;
     }
