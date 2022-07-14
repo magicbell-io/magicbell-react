@@ -1,5 +1,6 @@
 import { useNotificationPreferences } from '@magicbell/react-headless';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import PreferencesCategories from '../../../../src/components/UserPreferencesPanel/PreferencesCategories';
@@ -61,6 +62,68 @@ describe('PreferencesCategories component', () => {
 
       screen.getByText(/Comments Label/i);
       expect(screen.queryByText(/New Reply/i)).not.toBeInTheDocument();
+    });
+
+    test('it calls the onChange callback when preferences are changed', async () => {
+      const saveSpy = jest.fn();
+      const onChangeSpy = jest.fn();
+
+      useNotificationPreferences.setState({
+        ...sampleNotificationPreferences, // sets the categories property
+        lastFetchedAt: Date.now(),
+        save: saveSpy,
+      });
+
+      render(<PreferencesCategories onChange={onChangeSpy} />);
+
+      const checkboxes = Array.from(screen.getAllByRole('checkbox'));
+      const commentInApp = checkboxes.find(
+        (x) => x.getAttribute('id') === 'comments-in_app',
+      ) as HTMLElement;
+
+      const commentWebPush = checkboxes.find(
+        (x) => x.getAttribute('id') === 'comments-web_push',
+      ) as HTMLElement;
+
+      const replyMobilePush = checkboxes.find(
+        (x) => x.getAttribute('id') === 'new_reply-mobile_push',
+      ) as HTMLElement;
+
+      const commentInAppPreference = {
+        channels: [{ enabled: false, label: 'In app', slug: 'in_app' }],
+        label: 'Comments Label',
+        slug: 'comments',
+      };
+
+      const commentWebPushPreference = {
+        channels: [{ enabled: false, label: 'Web push', slug: 'web_push' }],
+        label: 'Comments Label',
+        slug: 'comments',
+      };
+
+      const replyMobilePushPreference = {
+        channels: [{ enabled: false, label: 'Mobile push', slug: 'mobile_push' }],
+        label: 'New Reply',
+        slug: 'new_reply',
+      };
+
+      await userEvent.click(commentInApp);
+      expect(saveSpy).toHaveBeenCalledTimes(1);
+      expect(saveSpy).toHaveBeenLastCalledWith({ categories: [commentInAppPreference] });
+      expect(onChangeSpy).toHaveBeenCalledTimes(1);
+      expect(onChangeSpy).toHaveBeenLastCalledWith({ category: commentInAppPreference });
+
+      await userEvent.click(commentWebPush);
+      expect(saveSpy).toHaveBeenCalledTimes(2);
+      expect(saveSpy).toHaveBeenLastCalledWith({ categories: [commentWebPushPreference] });
+      expect(onChangeSpy).toHaveBeenCalledTimes(2);
+      expect(onChangeSpy).toHaveBeenLastCalledWith({ category: commentWebPushPreference });
+
+      await userEvent.click(replyMobilePush);
+      expect(saveSpy).toHaveBeenCalledTimes(3);
+      expect(saveSpy).toHaveBeenLastCalledWith({ categories: [replyMobilePushPreference] });
+      expect(onChangeSpy).toHaveBeenCalledTimes(3);
+      expect(onChangeSpy).toHaveBeenLastCalledWith({ category: replyMobilePushPreference });
     });
   });
 });
